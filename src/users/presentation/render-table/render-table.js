@@ -4,31 +4,59 @@ import './render-table.css';
 
 
 let table;
-const createTable= () => {
+const createTable = () => {
     const table = document.createElement('table');
-    const tableHeader = document.createElement('thead');
-    tableHeader.innerHTML = `
-    <tr>
-        <th>#ID</th>
-        <th>Balance</th>
-        <th>firstName</th>
-        <th>lastName</th>
-        <th>Active</th>
-        <th>Actions</th>
-    </tr>
+    const tableHeaders = document.createElement('thead');
+    tableHeaders.innerHTML = `
+        <tr>
+            <th>#ID</th>
+            <th>Balance</th>
+            <th>FistName</th>
+            <th>LastName</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
     `;
 
-    const tableBody = document.createElement('tBody')
-    table.append(tableHeader, tableBody)
-    return table
+    const tableBody = document.createElement('tbody');
+    table.append( tableHeaders, tableBody )
+    return table;
 }
+
 /**
  * 
  * @param {HTMLDivElement} element 
  */
-export const RenderTable = (element) =>{
-    const user = usersStore.getUser()
-    if(!table){
-        table = createTable
+export const renderTable = ( element ) => {
+    
+    const users = usersStore.getUsers();
+
+    if ( !table ) {
+        table = createTable();
+        element.append( table );
+        
+        //TODO: listeners a la tabla
     }
+
+    let tableHTML = '';
+    users.forEach( user =>{
+        tableHTML += `
+        <tr>
+            <td>${ user.id}</th>
+            <td>${ user.balance}</th>
+            <td>${ user.firstName}</th>
+            <td>${ user.lastName}</th>
+            <td>${ user.isActive}</th>
+            <td>
+                <a href="#/" data-id="${user.id}">Select</a>
+                |
+                <a href="#/" data-id="${user.id}">Delete</a>
+            </th>
+        </tr>
+        
+        `
+    });
+    
+    table.querySelector('tbody').innerHTML = tableHTML;
+
 }

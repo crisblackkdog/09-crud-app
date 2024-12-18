@@ -14,8 +14,10 @@ const loadNextPage = async () => {
 }
 
 const loadPreviousPage = async()=>{
-    throw new error('no implementado')
-
+    if ( state.currentPage === 1 ) return;
+    const users = await loadUsersByPage(state.currentPage - 1);
+    state.users = users;
+    state.currentPage -= 1;
 }
 
 
@@ -35,6 +37,15 @@ export default {
     onUserChanged,
     reloadPage,
 
-    getUser: () =>[...state.users],
+    /**
+     * 
+     * @returns {USer[]}
+     */
+    getUsers: () =>[...state.users],
+
+    /**
+     * 
+     * @returns {Number[]}
+     */
     getCurrentPage: ()=>state.currentPage,
 }

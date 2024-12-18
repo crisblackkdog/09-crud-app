@@ -1,0 +1,12 @@
+table{
+    background-color: rgba(0, 0, 0, 0.348);
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
+}
+tr{
+    border: 10px;
+}
+td{
+    padding: 5px;
+}
